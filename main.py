@@ -8,32 +8,60 @@ def registrar_log(error):
 
 print("=== SISTEMA SOFTWARE FJ ===")
 
-# OPERACIÓN 1: RESERVA VALIDA
-try:
-    nombre = input("Ingrese nombre del cliente: ")
-    documento = input("Ingrese documento del cliente: ")
+operaciones = 0
 
-    cliente1 = Cliente(nombre, documento)
+while operaciones < 10:
+    print("\n--- MENÚ ---")
+    print("1. Crear reserva")
+    print("2. Crear cliente inválido (prueba error)")
+    print("3. Salir")
 
-    servicio1 = ReservaSala("Sala VIP", 50)
+    opcion = input("Seleccione una opción: ")
 
-    dias = int(input("Ingrese días de reserva: "))
+    # =========================
+    # OPCIÓN 1: RESERVA NORMAL
+    # =========================
+    if opcion == "1":
+        try:
+            nombre = input("Igrese el nombre del cliente: ")
+            documento = input("Igrese el Documento: ")
+            dias = int(input("ingrese los días de reserva: "))
 
-    reserva1 = Reserva(cliente1, servicio1, dias)
-    reserva1.confirmar()
+            cliente = Cliente(nombre, documento)
+            servicio = ReservaSala("Sala VIP", 50)
 
-    print("\n--- RESERVA EXITOSA ---")
-    print("Cliente:", cliente1)
-    print("Estado:", reserva1.estado)
-    print("Costo total:", reserva1.procesar())
+            reserva = Reserva(cliente, servicio, dias)
+            reserva.confirmar()
 
-except Exception as e:
-    registrar_log(e)
-    print("Error:", e)
+            print("\n✔ Reserva exitosa")
+            print("Cliente:", cliente)
+            print("Estado:", reserva.estado)
+            print("Costo total:", reserva.procesar())
 
-# OPERACIÓN 2: ERROR CONTROLADO (CLIENTE INVÁLIDO)
-try:
-    cliente2 = Cliente("", "12")
-except Exception as e:
-    registrar_log(e)
-    print("Error controlado:", e)
+            operaciones += 1
+
+        except Exception as e:
+            registrar_log(e)
+            print("✖ Error:", e)
+            operaciones += 1
+
+    # =========================
+    # OPCIÓN 2: ERROR CONTROLADO
+    # =========================
+    elif opcion == "2":
+        try:
+            cliente = Cliente("", "12")  # error intencional
+        except Exception as e:
+            registrar_log(e)
+            print("✖ Error controlado:", e)
+            operaciones += 1
+
+    # =========================
+    # SALIR
+    # =========================
+    elif opcion == "3":
+        print("Saliendo del sistema...")
+        break
+
+    else:
+        print("Opción inválida")
