@@ -2,10 +2,10 @@ from excepciones import ClienteError
 
 class Cliente:
     def __init__(self, nombre, documento):
-        if not nombre:
+        if not nombre or not nombre.strip():
             raise ClienteError("El nombre no puede estar vacío")
 
-        if len(str(documento)) < 5:
+        if len(str(documento).isdigit() or len(str(documento)) < 5:
             raise ClienteError("Documento inválido")
 
         self.__nombre = nombre
