@@ -7,7 +7,7 @@ def registrar_log(error):
         archivo.write(str(error) + "\n")
 
 try:
-    cliente1 = Cliente("Ana", "12345")
+    cliente1 = Cliente("Edy", "12345")
     servicio1 = ReservaSala("Sala VIP", 50)
 
     reserva1 = Reserva(cliente1, servicio1, 3)
